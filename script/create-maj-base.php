@@ -12,7 +12,14 @@ if(!defined('INC_FROM_DOLIBARR')) {
 }
 
 dol_include_once('/citrusmanager2/class/citrus2.class.php');
+dol_include_once('/citrusmanager2/class/citruscategory.class.php');
 
-$o=new Citrus2($db);
-$o->init_db_by_vars();
+$SeedObjectClasses = array(
+    'Citrus2',
+    'CitrusCategory'
+);
 
+foreach ($SeedObjectClasses as $SeedObjectClass) {
+    $o = new $SeedObjectClass($db);
+    $o->init_db_by_vars();
+}
