@@ -12,9 +12,9 @@ if (!class_exists('SeedObject'))
 
 class Citrus2 extends SeedObject
 {
-	public $table_element = 'Citrus';
+	public $table_element = 'citrus2';
 
-	public $element = 'Citrus';
+	public $element = 'citrus2';
 
     public $isextrafieldmanaged = 1; // enable extrafields
 	
@@ -112,7 +112,7 @@ class Citrus2 extends SeedObject
 		require_once DOL_DOCUMENT_ROOT.'/core/lib/functions2.lib.php';
 		
 		$mask = !empty($conf->global->MYMODULE_REF_MASK) ? $conf->global->MYMODULE_REF_MASK : 'MM{yy}{mm}-{0000}';
-		$numero = get_next_value($db, $mask, 'Citrus', 'ref');
+		$numero = get_next_value($db, $mask, 'citrus2', 'ref');
 		
 		return $numero;
 	}
@@ -144,7 +144,7 @@ class Citrus2 extends SeedObject
 	{
 		global $db;
 		
-		$object = new Citrus($db);
+		$object = new Citrus2($db);
 		$object->load($id, '',false);
 		
 		return $object->getNomUrl($withpicto);

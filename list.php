@@ -126,7 +126,7 @@ function _getObjectNomUrl($ref)
 {
 	global $db;
 
-	$o = new Citrus($db);
+	$o = new Citrus2($db);
 	$res = $o->load('', $ref);
 	if ($res > 0)
 	{

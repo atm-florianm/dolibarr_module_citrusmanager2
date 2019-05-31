@@ -13,6 +13,6 @@ if(!defined('INC_FROM_DOLIBARR')) {
 
 dol_include_once('/citrusmanager2/class/citrus2.class.php');
 
-$o=new Citrus($db);
+$o=new Citrus2($db);
 $o->init_db_by_vars();
 

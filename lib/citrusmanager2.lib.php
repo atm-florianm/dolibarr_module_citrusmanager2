@@ -64,7 +64,7 @@ function citrusmanager2AdminPrepareHead()
  * @param 	Citrus	$object		Object company shown
  * @return 	array				Array of tabs
  */
-function citrusmanager2_prepare_head(Citrus $object)
+function citrusmanager2_prepare_head(Citrus2 $object)
 {
     global $db, $langs, $conf, $user;
     $h = 0;
