@@ -32,7 +32,7 @@ class Citrus2 extends SeedObject
                 'unique' => true
             ),
 			'label'          => array( 'type' => 'string', 'length' => 255 ),
-            'price'          => array( 'type' => 'integer' ),
+            'price'          => array( 'type' => 'float' ),
             'date_creation'  => array( 'type' => 'date' ),
             'fk_category'    => array( 'type' => 'integer' ),
             'fk_product'     => array( 'type' => 'integer' ),
