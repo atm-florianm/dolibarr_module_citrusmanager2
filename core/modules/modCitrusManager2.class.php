@@ -166,7 +166,7 @@ class modCitrusManager2 extends DolibarrModules
             'tabfieldvalue' => array('ref,note,default_price'),
             'tabfieldinsert' => array('ref,note,default_price'),
             'tabrowid' => array('rowid'),
-            'tabcond' => array($conf->citrusmanager->enabled)
+            'tabcond' => array($conf->citrusmanager2->enabled)
         );
 
         // Boxes
