@@ -28,8 +28,7 @@ class Citrus2 extends SeedObject
 			'ref'            =>  array(
                 'type' => 'string',
                 'length' => 50,
-                'index' => true,
-                'unique' => true
+                'index' => true
             ),
 			'label'          => array( 'type' => 'string', 'length' => 255 ),
             'price'          => array( 'type' => 'float' ),
