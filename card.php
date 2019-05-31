@@ -70,10 +70,10 @@ if (empty($reshook))
 			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
 			exit;
 			break;
-		case 'modif':
-			if (!empty($user->rights->citrusmanager2->write)) $object->setDraft();
-				
-			break;
+//		case 'modif':
+//			if (!empty($user->rights->citrusmanager2->write)) $object->setDraft();
+//
+//			break;
 		case 'confirm_validate':
 			if (!empty($user->rights->citrusmanager2->write)) $object->setValid();
 			
@@ -139,19 +139,14 @@ print $TBS->render('tpl/card.tpl.php'
 			,'action' => 'save'
 			,'urlcard' => dol_buildpath('/citrusmanager2/card.php', 1)
 			,'urllist' => dol_buildpath('/citrusmanager2/list.php', 1)
-			,'showRef' => ($action == 'create') ? $langs->trans('Draft') : $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref', '')
+			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255)
 			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255)
+            ,'showPrice' => $formcore->texte('', 'Price', $object->price, 80, 255)
 //			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
 		)
 		,'langs' => $langs
 		,'user' => $user
 		,'conf' => $conf
-		, 'Citrus' => array(
-			//'STATUS_DRAFT' => Citrus2::STATUS_DRAFT
-			//,'STATUS_VALIDATED' => Citrus2::STATUS_VALIDATED
-			//,'STATUS_REFUSED' => Citrus2::STATUS_REFUSED
-			//,'STATUS_ACCEPTED' => Citrus2::STATUS_ACCEPTED
-		)
 	)
 );
 

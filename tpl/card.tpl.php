@@ -11,6 +11,10 @@
 				<td width="25%">[langs.transnoentities(Label)]</td>
 				<td>[view.showLabel;strconv=no]</td>
 			</tr>
+            <tr>
+                <td width="25%">[langs.transnoentities(Price)]</td>
+                <td>[view.showPrice;strconv=no]</td>
+            </tr>
 		</tbody>
 	</table>
 

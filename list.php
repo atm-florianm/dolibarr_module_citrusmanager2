@@ -36,25 +36,21 @@ if (empty($reshook))
 	// do action from GETPOST ... 
 }
 
-
 /*
  * View
  */
 
 llxHeader('',$langs->trans('CitrusManager2List'),'','');
 
-//$type = GETPOST('type');
-//if (empty($user->rights->citrusmanager2->all->read)) $type = 'mine';
-
 // TODO ajouter les champs de son objet que l'on souhaite afficher
-$sql = 'SELECT t.rowid, t.ref, t.label, t.date_creation, t.tms, \'\' AS action';
+$sql = 'SELECT citrus.rowid, citrus.ref, citrus.label, citrus.date_creation, citrus.tms, citrus.price, \'\' AS action';
 
-$sql.= ' FROM '.MAIN_DB_PREFIX.'citrusmanager2 t ';
+$sql .= ' FROM '.MAIN_DB_PREFIX.'citrus2 citrus';
 
-$sql.= ' WHERE 1=1';
+$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX.'product product ON citrus.fk_product = product.rowid';
+
+$sql .= ' WHERE 1=1';
 //$sql.= ' AND t.entity IN ('.getEntity('CitrusManager2', 1).')';
-//if ($type == 'mine') $sql.= ' AND t.fk_user = '.$user->id;
-
 
 $formcore = new TFormCore($_SERVER['PHP_SELF'], 'form_list_citrusmanager2', 'GET');
 
@@ -76,9 +72,9 @@ echo $r->render($sql, array(
 	,'search' => array(
 		'date_creation' => array('search_type' => 'calendars', 'allow_is_null' => true)
 		,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
-		,'ref' => array('search_type' => true, 'table' => 't', 'field' => 'ref')
-		,'label' => array('search_type' => true, 'table' => array('t', 't'), 'field' => array('label')) // input text de recherche sur plusieurs champs
-        // status de l'objet, 'to_translate' à true si nécessaire
+		,'ref' => array('search_type' => true, 'table' => 'citrus', 'field' => 'ref')
+		,'label' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('label')) // input text de recherche sur  champs
+        ,'price' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('price'))
 	)
 	,'translate' => array()
 	,'hide' => array(
@@ -99,10 +95,9 @@ echo $r->render($sql, array(
 	,'title'=>array(
 		'ref' => $langs->trans('Ref.')
 		,'label' => $langs->trans('Label')
+        ,'price' => $langs->trans('Price')
 		,'date_creation' => $langs->trans('DateCre')
 		,'tms' => $langs->trans('DateMaj')
-
-
         ,'selectedfields' => '' // For massaction checkbox
 	)
 	,'eval'=>array(
@@ -135,10 +130,10 @@ function _getObjectNomUrl($ref)
 
 	return '';
 }
-
 /**
  * TODO remove if unused
  */
+/*
 function _getUserNomUrl($fk_user)
 {
 	global $db;
@@ -151,3 +146,4 @@ function _getUserNomUrl($fk_user)
 
 	return '';
 }
+*/
