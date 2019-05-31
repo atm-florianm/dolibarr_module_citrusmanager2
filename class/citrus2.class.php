@@ -71,8 +71,13 @@ class Citrus2 extends SeedObject
 	
 	public function loadBy($value, $field, $annexe = false)
 	{
-		$res = parent::loadBy($value, $field, $annexe);
-		
+	    if (method_exists('parent', 'loadBy')) {
+            $res = parent::loadBy($value, $field, $annexe);
+        } else if (method_exists('parent', 'fetchBy')) {
+	        $res = parent::fetchBy($value, $field, $annexe);
+        } else {
+	        trigger_error('Citrus2::parent has neither a loadBy nor a fetchBy method.');
+        }
 		return $res;
 	}
 	
