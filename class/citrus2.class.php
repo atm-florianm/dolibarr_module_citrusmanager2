@@ -28,7 +28,8 @@ class Citrus2 extends SeedObject
 			'ref'            =>  array(
                 'type' => 'string',
                 'length' => 50,
-                'index' => true
+                'index' => true,
+                'unique' => true
             ),
 			'label'          => array( 'type' => 'string', 'length' => 255 ),
             'price'          => array( 'type' => 'integer' ),
@@ -46,7 +47,7 @@ class Citrus2 extends SeedObject
 		$this->entity = $conf->entity;
 	}
 
-	public function save($addprov=false)
+	public function save()
 	{
 		global $user;
 		
@@ -54,30 +55,13 @@ class Citrus2 extends SeedObject
 		
 		$res = $this->id>0 ? $this->updateCommon($user) : $this->createCommon($user);
 		
-		if ($addprov || !empty($this->is_clone))
-		{
-			$this->ref = '(PROV'.$this->id.')';
-			
-
-			$wc = $this->withChild;
-			$this->withChild = false;
-			$res = $this->id>0 ? $this->updateCommon($user) : $this->createCommon($user);
-			$this->withChild = $wc;
-		}
-		
 		return $res;
 	}
 	
 	
 	public function loadBy($value, $field, $annexe = false)
 	{
-	    if (method_exists('parent', 'loadBy')) {
-            $res = parent::loadBy($value, $field, $annexe);
-        } else if (method_exists('parent', 'fetchBy')) {
-	        $res = parent::fetchBy($value, $field, $annexe);
-        } else {
-	        trigger_error('Citrus2::parent has neither a loadBy nor a fetchBy method.');
-        }
+	    $res = parent::fetchBy($value, $field, $annexe);
 		return $res;
 	}
 	
@@ -94,9 +78,6 @@ class Citrus2 extends SeedObject
 	
 	public function delete(User &$user)
 	{
-		
-		$this->generic->deleteObjectLinked();
-		
 		parent::deleteCommon($user);
 	}
 

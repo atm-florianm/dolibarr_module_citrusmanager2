@@ -58,7 +58,7 @@ if (empty($reshook))
 				break;
 			}
 			
-			$object->save(empty($object->ref));
+			$object->save();
 			
 			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
 			exit;
@@ -88,7 +88,7 @@ if (empty($reshook))
 			break;
 		// link from llx_element_element
 		case 'dellink':
-			$object->generic->deleteObjectLinked(null, '', null, '', GETPOST('dellinkid'));
+			$object->deleteObjectLinked(null, '', null, '', GETPOST('dellinkid'));
 			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
 			exit;
 			break;
@@ -141,7 +141,7 @@ print $TBS->render('tpl/card.tpl.php'
 			,'urllist' => dol_buildpath('/citrusmanager2/list.php', 1)
 			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255)
 			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255)
-            ,'showPrice' => $formcore->texte('', 'Price', $object->price, 80, 255)
+            ,'showPrice' => $formcore->texte('', 'price', $object->price, 80, 255)
 //			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
 		)
 		,'langs' => $langs
