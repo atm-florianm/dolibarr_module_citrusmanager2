@@ -1,7 +1,7 @@
 <?php
 
 require 'config.php';
-dol_include_once('/citrusmanager2/class/citrusmanager2.class.php');
+dol_include_once('/citrusmanager2/class/citrus2.class.php');
 
 if(empty($user->rights->citrusmanager2->read)) accessforbidden();
 
@@ -13,7 +13,7 @@ $massaction =        GETPOST('massaction',        'alpha');
 $confirmmassaction = GETPOST('confirmmassaction', 'alpha');
 $toselect =          GETPOST('toselect',          'array');
 
-$object = new Citrus($db);
+$object = new Citrus2($db);
 
 $hookmanager->initHooks(array('citrusmanager2list'));
 
@@ -78,7 +78,7 @@ echo $r->render($sql, array(
 		,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
 		,'ref' => array('search_type' => true, 'table' => 't', 'field' => 'ref')
 		,'label' => array('search_type' => true, 'table' => array('t', 't'), 'field' => array('label')) // input text de recherche sur plusieurs champs
-		,'status' => array('search_type' => Citrus::$TStatus, 'to_translate' => true) // select html, la clé = le status de l'objet, 'to_translate' à true si nécessaire
+        // status de l'objet, 'to_translate' à true si nécessaire
 	)
 	,'translate' => array()
 	,'hide' => array(

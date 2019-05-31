@@ -10,7 +10,7 @@ if (!class_exists('SeedObject'))
 }
 
 
-class Citrus extends SeedObject
+class Citrus2 extends SeedObject
 {
 	public $table_element = 'Citrus';
 

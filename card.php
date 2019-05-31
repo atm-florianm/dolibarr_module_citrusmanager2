@@ -3,7 +3,7 @@
 require 'config.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
-dol_include_once('/citrusmanager2/class/citrusmanager2.class.php');
+dol_include_once('/citrusmanager2/class/citrus2.class.php');
 dol_include_once('/citrusmanager2/lib/citrusmanager2.lib.php');
 
 if(empty($user->rights->citrusmanager2->read)) accessforbidden();
@@ -18,7 +18,7 @@ $mode = 'view';
 if (empty($user->rights->citrusmanager2->write)) $mode = 'view'; // Force 'view' mode if can't edit object
 else if ($action == 'create' || $action == 'edit') $mode = 'edit';
 
-$object = new Citrus($db);
+$object = new Citrus2($db);
 
 if (!empty($id)) $object->load($id, '');
 elseif (!empty($ref)) $object->loadBy($ref, 'ref');
@@ -142,16 +142,15 @@ print $TBS->render('tpl/card.tpl.php'
 			,'showRef' => ($action == 'create') ? $langs->trans('Draft') : $form->showrefnav($object, 'ref', $linkback, 1, 'ref', 'ref', '')
 			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255)
 //			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
-			,'showStatus' => $object->getLibStatut(1)
 		)
 		,'langs' => $langs
 		,'user' => $user
 		,'conf' => $conf
 		, 'Citrus' => array(
-			'STATUS_DRAFT' => Citrus::STATUS_DRAFT
-			,'STATUS_VALIDATED' => Citrus::STATUS_VALIDATED
-			,'STATUS_REFUSED' => Citrus::STATUS_REFUSED
-			,'STATUS_ACCEPTED' => Citrus::STATUS_ACCEPTED
+			//'STATUS_DRAFT' => Citrus2::STATUS_DRAFT
+			//,'STATUS_VALIDATED' => Citrus2::STATUS_VALIDATED
+			//,'STATUS_REFUSED' => Citrus2::STATUS_REFUSED
+			//,'STATUS_ACCEPTED' => Citrus2::STATUS_ACCEPTED
 		)
 	)
 );

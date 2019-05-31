@@ -34,7 +34,7 @@ if (! $res) {
  * Config of extrafield page for CitrusManager2
  */
 require_once '../lib/citrusmanager2.lib.php';
-require_once '../class/citrusmanager2.class.php';
+require_once '../class/citrus2.class.php';
 $langs->loadLangs(array("citrusmanager2@citrusmanager2", "admin", "other"));
 
 $citrusmanager2 = new Citrus($db);

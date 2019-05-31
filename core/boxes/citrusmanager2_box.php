@@ -62,7 +62,7 @@ class citrusmanager2box extends ModeleBoxes
 
         $this->max = $max;
 
-        //include_once DOL_DOCUMENT_ROOT . "/citrusmanager2/class/citrusmanager2.class.php";
+        //include_once DOL_DOCUMENT_ROOT . "/citrusmanager2/class/citrus2.class.php";
 
         $text = $langs->trans("MyBoxDescription", $max);
         $this->info_box_head = array(
