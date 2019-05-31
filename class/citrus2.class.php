@@ -149,29 +149,5 @@ class Citrus2 extends SeedObject
 		
 		return $object->getNomUrl($withpicto);
 	}
-	
-	public function getLibStatut($mode=0)
-    {
-        return self::LibStatut($this->status, $mode);
-    }
-	
-	public static function LibStatut($status, $mode)
-	{
-		global $langs;
-		$langs->load('citrusmanager2@citrusmanager2');
-
-		if ($status==self::STATUS_DRAFT) { $statustrans='statut0'; $keytrans='CitrusManager2StatusDraft'; $shortkeytrans='Draft'; }
-		if ($status==self::STATUS_VALIDATED) { $statustrans='statut1'; $keytrans='CitrusManager2StatusValidated'; $shortkeytrans='Validate'; }
-		if ($status==self::STATUS_REFUSED) { $statustrans='statut5'; $keytrans='CitrusManager2StatusRefused'; $shortkeytrans='Refused'; }
-		if ($status==self::STATUS_ACCEPTED) { $statustrans='statut6'; $keytrans='CitrusManager2StatusAccepted'; $shortkeytrans='Accepted'; }
-
-		
-		if ($mode == 0) return img_picto($langs->trans($keytrans), $statustrans);
-		elseif ($mode == 1) return img_picto($langs->trans($keytrans), $statustrans).' '.$langs->trans($keytrans);
-		elseif ($mode == 2) return $langs->trans($keytrans).' '.img_picto($langs->trans($keytrans), $statustrans);
-		elseif ($mode == 3) return img_picto($langs->trans($keytrans), $statustrans).' '.$langs->trans($shortkeytrans);
-		elseif ($mode == 4) return $langs->trans($shortkeytrans).' '.img_picto($langs->trans($keytrans), $statustrans);
-	}
-	
 }
 
