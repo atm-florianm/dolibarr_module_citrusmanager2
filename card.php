@@ -4,6 +4,7 @@ require 'config.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
 dol_include_once('/citrusmanager2/class/citrus2.class.php');
+dol_include_once('/citrusmanager2/class/citruscategory.class.php');
 dol_include_once('/citrusmanager2/lib/citrusmanager2.lib.php');
 
 if(empty($user->rights->citrusmanager2->read)) accessforbidden();
@@ -40,7 +41,7 @@ if (empty($reshook))
 	switch ($action) {
 		case 'save':
 			$object->setValues($_REQUEST); // Set standard attributes
-			
+
 //			$object->date_other = dol_mktime(GETPOST('starthour'), GETPOST('startmin'), 0, GETPOST('startmonth'), GETPOST('startday'), GETPOST('startyear'));
 
 			// Check parameters
@@ -59,7 +60,7 @@ if (empty($reshook))
 			}
 			
 			$object->save();
-			
+
 			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
 			exit;
 			
@@ -81,7 +82,7 @@ if (empty($reshook))
 			exit;
 			break;
 		case 'confirm_delete':
-			if (!empty($user->rights->citrusmanager2->write)) $object->delete();
+			if (!empty($user->rights->citrusmanager2->write)) $object->delete($user);
 			
 			header('Location: '.dol_buildpath('/citrusmanager2/list.php', 1));
 			exit;
@@ -119,6 +120,7 @@ $formcore = new TFormCore;
 $formcore->Set_typeaff($mode);
 
 $form = new Form($db);
+$citrusCategory = new CitrusCategory($db);
 
 $formconfirm = getFormConfirmCitrusManager2($PDOdb, $form, $object, $action);
 if (!empty($formconfirm)) echo $formconfirm;
@@ -142,6 +144,17 @@ print $TBS->render('tpl/card.tpl.php'
 			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255)
 			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255)
             ,'showPrice' => $formcore->texte('', 'price', $object->price, 80, 255)
+            ,'showCategory' => $formcore->combo_sexy(
+                '',
+                'fk_category',
+                array(0 => $langs->trans('NoCategory')) +
+                array_map(
+                    function($value) {
+                        return $value->code;
+                    },
+                    $citrusCategory->fetchAll()
+                ),
+                $object->fk_category)
 //			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
 		)
 		,'langs' => $langs

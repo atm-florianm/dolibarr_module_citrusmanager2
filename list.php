@@ -43,11 +43,13 @@ if (empty($reshook))
 llxHeader('',$langs->trans('CitrusManager2List'),'','');
 
 // TODO ajouter les champs de son objet que l'on souhaite afficher
-$sql = 'SELECT citrus.rowid, citrus.ref, citrus.label, citrus.date_creation, citrus.tms, citrus.price, \'\' AS action';
+$sql = 'SELECT citrus.rowid, citrus.ref, citrus.label AS citrus_label, category.label AS category_label, citrus.date_creation, citrus.tms, citrus.price, \'\' AS action';
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'citrus2 citrus';
 
-$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX.'product product ON citrus.fk_product = product.rowid';
+$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX.'c_citrusmanager2_category AS category ON (citrus.fk_category = category.rowid)';
+
+$sql .= ' LEFT JOIN ' . MAIN_DB_PREFIX.'product AS product ON (citrus.fk_product = product.rowid)';
 
 $sql .= ' WHERE 1=1';
 //$sql.= ' AND t.entity IN ('.getEntity('CitrusManager2', 1).')';
@@ -69,13 +71,6 @@ echo $r->render($sql, array(
 		'date_creation' => 'date' // [datetime], [hour], [money], [number], [integer]
 		,'tms' => 'date'
 	)
-	,'search' => array(
-		'date_creation' => array('search_type' => 'calendars', 'allow_is_null' => true)
-		,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
-		,'ref' => array('search_type' => true, 'table' => 'citrus', 'field' => 'ref')
-		,'label' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('label')) // input text de recherche sur  champs
-        ,'price' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('price'))
-	)
 	,'translate' => array()
 	,'hide' => array(
 		'rowid' // important : rowid doit exister dans la query sql pour les checkbox de massaction
@@ -92,9 +87,18 @@ echo $r->render($sql, array(
             'yourmassactioncode'  => $langs->trans('YourMassActionLabel')
         )
 	)
+    ,'search' => array(
+        'date_creation' => array('search_type' => 'calendars', 'allow_is_null' => true)
+        ,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
+        ,'ref' => array('search_type' => true, 'table' => 'citrus', 'field' => 'ref')
+        ,'citrus_label' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('label')) // input text de recherche sur  champs
+        ,'category_label' => array('search_type' => true, 'table' => 'category', 'field' => 'category.code')
+        ,'price' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('price'))
+    )
 	,'title'=>array(
 		'ref' => $langs->trans('Ref.')
-		,'label' => $langs->trans('Label')
+		,'citrus_label' => $langs->trans('Label')
+        ,'category_label' => $langs->trans('Category')
         ,'price' => $langs->trans('Price')
 		,'date_creation' => $langs->trans('DateCre')
 		,'tms' => $langs->trans('DateMaj')

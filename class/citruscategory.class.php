@@ -26,4 +26,23 @@ class CitrusCategory extends SeedObject
         );
         $this->init();
     }
+
+    public function fetchAll()
+    {
+        $sql  = 'SELECT category.rowid, category.code, category.label';
+        $sql .= ' FROM ' . MAIN_DB_PREFIX . 'c_citrusmanager2_category category;';
+        $resql = $this->db->query($sql);
+        if ($resql) {
+            $allCategories = array();
+            while ($object = $this->db->fetch_object($resql)) {
+                $id = $object->rowid;
+                $allCategories[$id] = $object;
+            }
+            return $allCategories;
+        } else {
+            dol_print_error($this->db);
+            return -1;
+        }
+
+    }
 }
