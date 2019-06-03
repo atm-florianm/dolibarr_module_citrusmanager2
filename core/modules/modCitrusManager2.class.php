@@ -155,16 +155,16 @@ class modCitrusManager2 extends DolibarrModules
             'tablib' => array('CitrusDictCategories'),
             'tabsql' => array('SELECT
                                     dict.rowid,
-                                    dict.ref,
-                                    dict.note,
+                                    dict.code,
+                                    dict.label,
                                     dict.default_price,
                                     dict.active
                                FROM ' . $dict_table_name . ' AS dict'
             ),
-            'tabsqlsort' => array('ref ASC'),
-            'tabfield' => array('ref,note,default_price'),
-            'tabfieldvalue' => array('ref,note,default_price'),
-            'tabfieldinsert' => array('ref,note,default_price'),
+            'tabsqlsort' => array('code ASC'),
+            'tabfield' => array('code,label,default_price'),
+            'tabfieldvalue' => array('code,label,default_price'),
+            'tabfieldinsert' => array('code,label,default_price'),
             'tabrowid' => array('rowid'),
             'tabcond' => array($conf->citrusmanager2->enabled)
         );
@@ -257,7 +257,7 @@ class modCitrusManager2 extends DolibarrModules
 
 		require dol_buildpath('/citrusmanager2/script/create-maj-base.php');
 
-		//$result=$this->_load_tables('/citrusmanager2/sql/');
+		$result=$this->_load_tables('/citrusmanager2/sql/');
 
 		return $this->_init($sql, $options);
 	}
