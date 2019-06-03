@@ -43,7 +43,16 @@ if (empty($reshook))
 llxHeader('',$langs->trans('CitrusManager2List'),'','');
 
 // TODO ajouter les champs de son objet que l'on souhaite afficher
-$sql = 'SELECT citrus.rowid, citrus.ref, citrus.label AS citrus_label, category.label AS category_label, citrus.date_creation, citrus.tms, citrus.price, \'\' AS action';
+$sql = 'SELECT
+        citrus.rowid,
+        citrus.ref,
+        citrus.label AS citrus_label,
+        category.label AS category_label,
+        category.code AS category_code,
+        citrus.date_creation,
+        citrus.tms,
+        citrus.price,
+        \'\' AS action';
 
 $sql .= ' FROM '.MAIN_DB_PREFIX.'citrus2 citrus';
 
@@ -88,11 +97,11 @@ echo $r->render($sql, array(
         )
 	)
     ,'search' => array(
-        'date_creation' => array('search_type' => 'calendars', 'allow_is_null' => true)
+        'date_creation' => array('search_type' => 'calendars', 'allow_is_null' => true, 'table' => 'citrus', 'field' => 'date_creation')
         ,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
         ,'ref' => array('search_type' => true, 'table' => 'citrus', 'field' => 'ref')
-        ,'citrus_label' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('label')) // input text de recherche sur  champs
-        ,'category_label' => array('search_type' => true, 'table' => 'category', 'field' => 'category.code')
+        ,'citrus_label' => array('search_type' => true, 'table' => 'citrus', 'field' => 'label')
+        ,'category_label' => array('search_type' => true, 'table' => 'category', 'field' => 'label')
         ,'price' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('price'))
     )
 	,'title'=>array(
