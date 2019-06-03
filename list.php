@@ -2,6 +2,7 @@
 
 require 'config.php';
 dol_include_once('/citrusmanager2/class/citrus2.class.php');
+dol_include_once('/citrusmanager2/class/citruscategory.class.php');
 
 if(empty($user->rights->citrusmanager2->read)) accessforbidden();
 
@@ -39,6 +40,8 @@ if (empty($reshook))
 /*
  * View
  */
+
+$category = new CitrusCategory($db);
 
 llxHeader('',$langs->trans('CitrusManager2List'),'','');
 
@@ -78,7 +81,9 @@ echo $r->render($sql, array(
 	,'link' => array()
 	,'type' => array(
 		'date_creation' => 'date' // [datetime], [hour], [money], [number], [integer]
-		,'tms' => 'date'
+		,'tms' => 'datetime'
+        ,'date_creation' => 'datetime'
+        ,'price' => 'money'
 	)
 	,'translate' => array()
 	,'hide' => array(
@@ -101,7 +106,7 @@ echo $r->render($sql, array(
         ,'tms' => array('search_type' => 'calendars', 'allow_is_null' => false)
         ,'ref' => array('search_type' => true, 'table' => 'citrus', 'field' => 'ref')
         ,'citrus_label' => array('search_type' => true, 'table' => 'citrus', 'field' => 'label')
-        ,'category_label' => array('search_type' => true, 'table' => 'category', 'field' => 'label')
+        ,'category_label' => array('search_type' => $category->fetchOptionsForSelect(), 'table' => 'category', 'field' => 'rowid')
         ,'price' => array('search_type' => true, 'table' => array('citrus', 'citrus'), 'field' => array('price'))
     )
 	,'title'=>array(

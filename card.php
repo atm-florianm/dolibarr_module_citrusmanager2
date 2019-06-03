@@ -147,13 +147,7 @@ print $TBS->render('tpl/card.tpl.php'
             ,'showCategory' => $formcore->combo_sexy(
                 '',
                 'fk_category',
-                array(0 => $langs->trans('NoCategory')) +
-                array_map(
-                    function($value) {
-                        return $value->code;
-                    },
-                    $citrusCategory->fetchAll()
-                ),
+                array(0 => $langs->trans('NoCategory')) + $citrusCategory->fetchOptionsForSelect(),
                 $object->fk_category)
 //			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
 		)
