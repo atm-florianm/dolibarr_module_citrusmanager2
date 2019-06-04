@@ -32,7 +32,7 @@
 	<input type='hidden' name='id' value='[object.id]' />
 	[onshow;block=end]
     <input type="submit" value="[langs.transnoentities(Save)]" class="button" />
-	<input type="button" onclick="javascript:history.go(-1)" value="[langs.transnoentities(Cancel)]" class="button">
+	<input type="button" onclick="javascript:history.go(-1)" value="[langs.transnoentities(Cancel)]" class="button" formnovalidate />
 	
 </div>
 [onshow;block=end]

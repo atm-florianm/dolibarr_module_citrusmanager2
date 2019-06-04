@@ -37,7 +37,7 @@ require_once '../lib/citrusmanager2.lib.php';
 require_once '../class/citrus2.class.php';
 $langs->loadLangs(array("citrusmanager2@citrusmanager2", "admin", "other"));
 
-$citrusmanager2 = new Citrus($db);
+$citrusmanager2 = new Citrus2($db);
 $elementtype=$citrusmanager2->table_element;  //Must be the $table_element of the class that manage extrafield
 
 // Page title and texts elements

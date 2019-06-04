@@ -20,6 +20,7 @@ if (empty($user->rights->citrusmanager2->write)) $mode = 'view'; // Force 'view'
 else if ($action == 'create' || $action == 'edit') $mode = 'edit';
 
 $object = new Citrus2($db);
+$citrusCategory = new CitrusCategory($db);
 
 if (!empty($id)) $object->load($id, '');
 elseif (!empty($ref)) $object->loadBy($ref, 'ref');
@@ -41,6 +42,10 @@ if (empty($reshook))
 	switch ($action) {
 		case 'save':
 			$object->setValues($_REQUEST); // Set standard attributes
+            if ($object->fk_category) {
+                $citrusCategory->fetch($object->fk_category);
+            }
+            $object->price = ($object->price ?: $citrusCategory->default_price) ?: $conf->global->CITRUSMANAGER2_DEFAULT_PRICE;
 
 //			$object->date_other = dol_mktime(GETPOST('starthour'), GETPOST('startmin'), 0, GETPOST('startmonth'), GETPOST('startday'), GETPOST('startyear'));
 
@@ -120,7 +125,6 @@ $formcore = new TFormCore;
 $formcore->Set_typeaff($mode);
 
 $form = new Form($db);
-$citrusCategory = new CitrusCategory($db);
 
 $formconfirm = getFormConfirmCitrusManager2($PDOdb, $form, $object, $action);
 if (!empty($formconfirm)) echo $formconfirm;

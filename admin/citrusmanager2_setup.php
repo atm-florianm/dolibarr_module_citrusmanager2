@@ -93,7 +93,7 @@ dol_fiche_head(
     'settings',
     $langs->trans("Module104554Name"),
     -1,
-    "citrusmanager2@citrusmanager2"
+    "citrus32×32@citrusmanager2"
 );
 
 // Setup page goes here
@@ -109,20 +109,7 @@ if(!function_exists('setup_print_title')){
 
 setup_print_title("Parameters");
 
-// Example with a yes / no select
-setup_print_on_off('CONSTNAME', 'ParamLabel' , 'ParamDesc');
-
-// Example with imput
-setup_print_input_form_part('CONSTNAME', 'ParamLabel');
-
-// Example with color
-setup_print_input_form_part('CONSTNAME', 'ParamLabel', 'ParamDesc', array('type'=>'color'),'input','ParamHelp');
-
-// Example with placeholder
-//setup_print_input_form_part('CONSTNAME','ParamLabel','ParamDesc',array('placeholder'=>'http://'),'input','ParamHelp');
-
-// Example with textarea
-//setup_print_input_form_part('CONSTNAME','ParamLabel','ParamDesc',array(),'textarea');
+setup_print_input_form_part('CITRUSMANAGER2_DEFAULT_PRICE', 'DefaultPrice', 'DefaultPriceDesc', array('type'=>'number', 'step'=>'0.01'),'input', 'DefaultPriceHelp');
 
 
 print '</table>';
