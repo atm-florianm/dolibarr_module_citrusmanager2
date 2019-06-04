@@ -136,6 +136,7 @@ $TBS->TBS->noerr=true;
 if ($mode == 'edit') echo $formcore->begin_form($_SERVER['PHP_SELF'], 'form_citrusmanager2');
 
 $linkback = '<a href="'.dol_buildpath('/citrusmanager2/list.php', 1).'">' . $langs->trans("BackToList") . '</a>';
+
 print $TBS->render('tpl/card.tpl.php'
 	,array() // Block
 	,array(
@@ -145,8 +146,8 @@ print $TBS->render('tpl/card.tpl.php'
 			,'action' => 'save'
 			,'urlcard' => dol_buildpath('/citrusmanager2/card.php', 1)
 			,'urllist' => dol_buildpath('/citrusmanager2/list.php', 1)
-			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255)
-			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255)
+			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255, 'required')
+			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255, 'required')
             ,'showPrice' => $formcore->texte('', 'price', $object->price, 80, 255)
             ,'showCategory' => $formcore->combo_sexy(
                 '',
