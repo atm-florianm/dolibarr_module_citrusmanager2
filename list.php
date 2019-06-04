@@ -89,6 +89,9 @@ echo $r->render($sql, array(
 	,'hide' => array(
 		'rowid' // important : rowid doit exister dans la query sql pour les checkbox de massaction
 	)
+    ,'operator' => array(
+        'price' => '>='
+    )
 	,'list' => array(
 		'title' => $langs->trans('CitrusManager2List')
 		,'image' => 'title_generic.png'

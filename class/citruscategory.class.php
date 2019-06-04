@@ -19,9 +19,9 @@ class CitrusCategory extends SeedObject
         global $langs;
         $this->db = $db;
         $this->fields = array(
-            'code'           => array('type' => 'string', 'length' => 255, 'index' => true),
-            'label'          => array('type' => 'string', 'length' => 1024),
-            'default_price' => array('type' => 'integer'),
+            'code'          => array('type' => 'string', 'length' => 255, 'index' => true),
+            'label'         => array('type' => 'string', 'length' => 1024),
+            'default_price' => array('type' => 'float'),
             'active'        => array('type' => 'integer')
         );
         $this->init();
