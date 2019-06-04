@@ -127,6 +127,22 @@ echo $r->render($sql, array(
 	)
 ));
 
+echo '<script>';
+echo <<<js
+$(document).ready(function() {
+    // turn the citrus category filter into a select2
+    let categoryFilter = $('#Listview_Citrus_search_category_label');
+    categoryFilter.select2();
+
+    // make it submit the form when the user makes their choice
+    categoryFilter.change(function() {
+        this.form.submit();
+    });
+});
+js;
+echo '</script>';
+
+
 $parameters=array('sql'=>$sql);
 $reshook=$hookmanager->executeHooks('printFieldListFooter', $parameters, $object);    // Note that $action and $object may have been modified by hook
 print $hookmanager->resPrint;
