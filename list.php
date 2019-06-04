@@ -127,8 +127,8 @@ echo $r->render($sql, array(
 	)
 ));
 
-echo '<script>';
-echo <<<js
+$js_for_UX_improvement = '<script>';
+$js_for_UX_improvement .= <<<js
 $(document).ready(function() {
     // turn the citrus category filter into a select2
     let categoryFilter = $('#Listview_Citrus_search_category_label');
@@ -140,7 +140,8 @@ $(document).ready(function() {
     });
 });
 js;
-echo '</script>';
+$js_for_UX_improvement .= '</script>';
+echo $js_for_UX_improvement;
 
 
 $parameters=array('sql'=>$sql);
