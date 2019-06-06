@@ -31,6 +31,14 @@ if (!GETPOST('confirmmassaction', 'alpha') && $massaction != 'presend' && $massa
     $massaction = '';
 }
 
+if ($massaction == 'delete') {
+    foreach ($toselect as $citrus_id) {
+        $object->id = $citrus_id;
+        $object->delete($user);
+    }
+}
+$object->id = -1;
+
 
 if (empty($reshook))
 {
@@ -68,7 +76,11 @@ $sql .= ' WHERE 1=1';
 
 $formcore = new TFormCore($_SERVER['PHP_SELF'], 'form_list_citrusmanager2', 'GET');
 
-$nbLine = !empty($user->conf->MAIN_SIZE_LISTE_LIMIT) ? $user->conf->MAIN_SIZE_LISTE_LIMIT : $conf->global->MAIN_SIZE_LISTE_LIMIT;
+$nbLine = GETPOST('limit', 'int');
+$nbLine = $nbLine ?: $user->conf->MAIN_SIZE_LISTE_LIMIT;
+$nbLine = $nbLine ?: $conf->global->MAIN_SIZE_LISTE_LIMIT;
+
+//$page = GETPOST('page');
 
 $r = new Listview($db, 'Citrus');
 echo $r->render($sql, array(
@@ -101,7 +113,7 @@ echo $r->render($sql, array(
 		,'messageNothing' => $langs->trans('NoCitrusManager2')
 		,'picto_search' => img_picto('','search.png', '', 0)
         ,'massactions'=>array(
-            'yourmassactioncode'  => $langs->trans('YourMassActionLabel')
+            'delete'  => $langs->trans('Delete')
         )
 	)
     ,'search' => array(
