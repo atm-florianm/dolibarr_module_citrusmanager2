@@ -4,18 +4,21 @@ Module104554Desc = CitrusManager2 Description
 ATMAbout = Ce module a été développé par <a href="http://www.atm-consulting.fr" target="_blank">ATM Consulting</a><br>Vous pouvez retrouver la documentation sur notre <a href="http://wiki.atm-consulting.fr/index.php/Accueil" target="_blank">wiki</a><br><br>Pour toute question technique ou retour, contactez-nous sur <a href="mailto:support@atm-consulting.fr">support@atm-consulting.fr</a><br><br>Pour toute question commerciale, contactez-nous sur <a href="mailto:contact@atm-consulting.fr">contact@atm-consulting.fr</a> ou au +33 9 77 19 50 70<br><br>Retrouvez nos autres modules sur <a href="http://www.dolistore.com/search.php?orderby=position&orderway=desc&search_query=atm&submit_search=Rechercher" target="_blank">Dolistore</a>
 
 CitrusManager2Setup = Configuration du module CitrusManager2
-CitrusManager2About = A propos du module CitrusManager2
+CitrusManager2About = À propos du module CitrusManager2
 
 CitrusManager2=CitrusManager2
 AbricotNeedUpdate=Le module abricot doit être mis à jour
 
 # SETUP
-ParamLabel=Nom du paramètre
-ParamDesc=Une description si besoin
-ParamHelp=Le contenu de l'aide
+DefaultPrice=Prix par défaut
+DefaultPriceDesc=Prix d’un agrume par défaut
+DefaultPriceHelp=Ce prix sera automatiquement défini pour vos agrumes si leur prix est nul ou non renseigné.
 
 # MENU
-TopMenuCitrusManager2=CitrusManager2
+TopMenuCitrusManager2=Agrumes v2
+ListCitruses2=Liste
+NewCitrus2=Nouvel agrume
+CitrusManager2=Agrumes v2
 
 # STATUS
 CitrusManager2StatusDraft=Brouillon (à valider)
@@ -35,6 +38,10 @@ NoCitrusManager2=(vide)
 # CARD
 NewCitrusManager2=Création CitrusManager2
 CitrusManager2Card=Fiche CitrusManager2
+refTooltip=Code de référence unique de votre agrume
+labelTooltip=Libellé (en bon français) de votre agrume
+priceTooltip=Prix de votre agrume. Si non défini ou nul, un prix par défaut sera choisi pour vous.
+categoryTooltip=Catégorie de votre agrume. Les catégories peuvent être définies dans un dictionnaire.
 
 # CARD TPL
 Save=Enregistrer

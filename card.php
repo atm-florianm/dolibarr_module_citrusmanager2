@@ -153,8 +153,12 @@ print $TBS->render('tpl/card.tpl.php'
                 '',
                 'fk_category',
                 array(0 => $langs->trans('NoCategory')) + $citrusCategory->fetchOptionsForSelect(),
-                $object->fk_category)
-//			,'showNote' => $formcore->zonetexte('', 'note', $object->note, 80, 8)
+                $object->fk_category
+            )
+            ,'refTooltip' => $form->textwithpicto('', $langs->trans('refTooltip'))
+            ,'labelTooltip' => $form->textwithpicto('', $langs->trans('labelTooltip'))
+            ,'priceTooltip' => $form->textwithpicto('', $langs->trans('priceTooltip'))
+            ,'categoryTooltip' => $form->textwithpicto('', $langs->trans('categoryTooltip'))
 		)
 		,'langs' => $langs
 		,'user' => $user

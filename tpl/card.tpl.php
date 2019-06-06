@@ -3,20 +3,36 @@
 	<table width="100%" class="border">
 		<tbody>
 			<tr class="ref">
-				<td width="25%">[langs.transnoentities(Ref)]</td>
+				<td width="25%">[langs.transnoentities(Ref)]
+                    [onshow;block=begin;when [view.mode]='edit']
+                    [view.refTooltip;htmlconv=no]
+                    [onshow;block=end]
+                </td>
 				<td>[view.showRef;strconv=no]</td>
 			</tr>
 
 			<tr class="label">
-				<td width="25%">[langs.transnoentities(Label)]</td>
+				<td width="25%">[langs.transnoentities(Label)]
+                    [onshow;block=begin;when [view.mode]='edit']
+                    [view.labelTooltip;htmlconv=no]
+                    [onshow;block=end]
+                </td>
 				<td>[view.showLabel;strconv=no]</td>
 			</tr>
             <tr>
-                <td width="25%">[langs.transnoentities(Price)]</td>
+                <td width="25%">[langs.transnoentities(Price)]
+                    [onshow;block=begin;when [view.mode]='edit']
+                    [view.priceTooltip;htmlconv=no]
+                    [onshow;block=end]
+                </td>
                 <td>[view.showPrice;strconv=no]</td>
             </tr>
             <tr>
-                <td width="25%">[langs.transnoentities(Category)]</td>
+                <td width="25%">[langs.transnoentities(Category)]
+                [onshow;block=begin;when [view.mode]='edit']
+                    [view.categoryTooltip;htmlconv=no]
+                [onshow;block=end]
+                </td>
                 <td>[view.showCategory;strconv=no]</td>
             </tr>
 		</tbody>
