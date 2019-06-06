@@ -124,7 +124,24 @@ class Citrus2 extends SeedObject
 		
         return $result;
 	}
-	
+
+    /** This method replaces the provided fk_product with 0 in all matching citruses.
+     *  It should be called when a product is deleted: this way no citrus will hold a
+     *  foreign key to a non-existing product.
+     *
+     * @param $fk_product The ID of the product you are about to delete.
+     * @return bool true if the query succeeded, false otherwise.
+     */
+    public function invalidateFkProduct($fk_product)
+    {
+        $sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET fk_product = 0 WHERE fk_product = '. $fk_product . ';';
+        $resql = $this->db->query($sql);
+        if (!$resql) {
+            dol_print_error($this->db);
+        }
+        return (boolean)$resql;
+    }
+
 	public static function getStaticNomUrl($id, $withpicto=0)
 	{
 		global $db;

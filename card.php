@@ -3,6 +3,7 @@
 require 'config.php';
 require_once DOL_DOCUMENT_ROOT.'/core/lib/functions.lib.php';
 require_once DOL_DOCUMENT_ROOT.'/core/class/html.form.class.php';
+require_once DOL_DOCUMENT_ROOT.'/product/class/product.class.php';
 dol_include_once('/citrusmanager2/class/citrus2.class.php');
 dol_include_once('/citrusmanager2/class/citruscategory.class.php');
 dol_include_once('/citrusmanager2/lib/citrusmanager2.lib.php');
@@ -25,6 +26,15 @@ $citrusCategory = new CitrusCategory($db);
 if (!empty($id)) $object->load($id, '');
 elseif (!empty($ref)) $object->loadBy($ref, 'ref');
 
+$product = NULL;
+if ($object->fk_product > 0) {
+    $product = new Product($db);
+    $product->fetch($object->fk_product);
+    if ($product->id <= 0) {
+        setEventMessages('The product linked with this citrus could not be loaded.', array(), 'errors');
+    }
+}
+
 $hookmanager->initHooks(array('citrusmanager2card', 'globalcard'));
 
 /*
@@ -40,24 +50,14 @@ if (empty($reshook))
 {
 	$error = 0;
 	switch ($action) {
-		case 'save':
+        case 'save':
+		    // TODO: check whether $object->setValues($_REQUEST) meets security standards
 			$object->setValues($_REQUEST); // Set standard attributes
             if ($object->fk_category) {
                 $citrusCategory->fetch($object->fk_category);
             }
             $object->price = ($object->price ?: $citrusCategory->default_price) ?: $conf->global->CITRUSMANAGER2_DEFAULT_PRICE;
 
-//			$object->date_other = dol_mktime(GETPOST('starthour'), GETPOST('startmin'), 0, GETPOST('startmonth'), GETPOST('startday'), GETPOST('startyear'));
-
-			// Check parameters
-//			if (empty($object->date_other))
-//			{
-//				$error++;
-//				setEventMessages($langs->trans('warning_date_must_be_fill'), array(), 'warnings');
-//			}
-			
-			// ... 
-			
 			if ($error > 0)
 			{
 				$mode = 'edit';
@@ -70,37 +70,27 @@ if (empty($reshook))
 			exit;
 			
 			break;
-		case 'confirm_clone':
-			$object->cloneObject();
-			
-			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
-			exit;
-			break;
-//		case 'modif':
-//			if (!empty($user->rights->citrusmanager2->write)) $object->setDraft();
-//
-//			break;
-		case 'confirm_validate':
-			if (!empty($user->rights->citrusmanager2->write)) $object->setValid();
-			
-			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
-			exit;
-			break;
+        case 'create_from_product':
+            $fk_product = GETPOST('fk_product');
+            $product = new Product($db);
+            $product->fetch($fk_product);
+            if ($product->id <= 0) {
+                setEventMessages('The product linked with this citrus could not be loaded.', array(), 'errors');
+            }
+            foreach (array('ref', 'label', 'price') as $field) {
+                $object->$field = $product->$field;
+            }
+            $object->fk_product = $fk_product;
+            $mode = 'edit';
+            break;
 		case 'confirm_delete':
 			if (!empty($user->rights->citrusmanager2->write)) $object->delete($user);
 			
 			header('Location: '.dol_buildpath('/citrusmanager2/list.php', 1));
 			exit;
 			break;
-		// link from llx_element_element
-		case 'dellink':
-			$object->deleteObjectLinked(null, '', null, '', GETPOST('dellinkid'));
-			header('Location: '.dol_buildpath('/citrusmanager2/card.php', 1).'?id='.$object->id);
-			exit;
-			break;
 	}
 }
-
 
 /**
  * View
@@ -146,6 +136,9 @@ print $TBS->render('tpl/card.tpl.php'
 			,'action' => 'save'
 			,'urlcard' => dol_buildpath('/citrusmanager2/card.php', 1)
 			,'urllist' => dol_buildpath('/citrusmanager2/list.php', 1)
+            ,'fk_product' => $object->fk_product
+            ,'productURL' => $product ? dol_buildpath('product/card.php', 1) . '?id=' . $object->fk_product : ''
+            ,'productRefValue' => $product ? $product->ref : ''
 			,'showRef'   => $formcore->texte('', 'ref',   $object->ref,  80, 255, 'required')
 			,'showLabel' => $formcore->texte('', 'label', $object->label, 80, 255, 'required')
             ,'showPrice' => $formcore->texte('', 'price', $object->price, 80, 255)

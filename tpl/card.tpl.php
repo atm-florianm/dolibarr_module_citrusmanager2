@@ -1,9 +1,13 @@
 <!-- Un début de <div> existe de par la fonction dol_fiche_head() -->
 	<input type="hidden" name="action" value="[view.action]" />
 	<table width="100%" class="border">
+        <colgroup>
+            <col width="25%" class="labelColumn"/>
+            <col width="75%" class="valueColumn"/>
+        </colgroup>
 		<tbody>
 			<tr class="ref">
-				<td width="25%">[langs.transnoentities(Ref)]
+				<td>[langs.transnoentities(Ref)]
                     [onshow;block=begin;when [view.mode]='edit']
                     [view.refTooltip;htmlconv=no]
                     [onshow;block=end]
@@ -12,7 +16,7 @@
 			</tr>
 
 			<tr class="label">
-				<td width="25%">[langs.transnoentities(Label)]
+				<td>[langs.transnoentities(Label)]
                     [onshow;block=begin;when [view.mode]='edit']
                     [view.labelTooltip;htmlconv=no]
                     [onshow;block=end]
@@ -20,7 +24,7 @@
 				<td>[view.showLabel;strconv=no]</td>
 			</tr>
             <tr>
-                <td width="25%">[langs.transnoentities(Price)]
+                <td>[langs.transnoentities(Price)]
                     [onshow;block=begin;when [view.mode]='edit']
                     [view.priceTooltip;htmlconv=no]
                     [onshow;block=end]
@@ -28,13 +32,21 @@
                 <td>[view.showPrice;strconv=no]</td>
             </tr>
             <tr>
-                <td width="25%">[langs.transnoentities(Category)]
+                <td>[langs.transnoentities(Category)]
                 [onshow;block=begin;when [view.mode]='edit']
                     [view.categoryTooltip;htmlconv=no]
                 [onshow;block=end]
                 </td>
                 <td>[view.showCategory;strconv=no]</td>
             </tr>
+            [onshow;block=begin;when [view.fk_product]+-0]
+            [onshow;block=begin;when [view.mode]!='edit']
+            <tr>
+                <td>[langs.transnoentities(ProductRef)]</td>
+                <td><a href="[view.productURL]">[view.productRefValue;htmlconv=no]</a></td>
+            </tr>
+            [onshow;block=end]
+            [onshow;block=end]
 		</tbody>
 	</table>
 
@@ -47,6 +59,7 @@
 	[onshow;block=begin;when [object.id]+-0]
 	<input type='hidden' name='id' value='[object.id]' />
 	[onshow;block=end]
+    <input type="hidden" name="fk_product" value="[view.fk_product]" />
     <input type="submit" value="[langs.transnoentities(Save)]" class="button" />
 	<input type="button" onclick="javascript:history.go(-1)" value="[langs.transnoentities(Cancel)]" class="button" formnovalidate />
 	

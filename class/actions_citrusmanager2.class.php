@@ -52,7 +52,7 @@ class ActionsCitrusManager2
 	}
 
 	/**
-	 * Overloading the doActions function : replacing the parent's function with the one below
+	 * Overloads the addMoreActionsButtons method and adds a 'create citrus from product' button to product cards
 	 *
 	 * @param   array()         $parameters     Hook metadatas (context, etc...)
 	 * @param   CommonObject    &$object        The object to process (an invoice if you are in invoice module, a propale in propale's module, etc...)
@@ -60,18 +60,31 @@ class ActionsCitrusManager2
 	 * @param   HookManager     $hookmanager    Hook manager propagated to allow calling another hook
 	 * @return  int                             < 0 on error, 0 on success, 1 to replace standard code
 	 */
-	function doActions($parameters, &$object, &$action, $hookmanager)
+	function addMoreActionsButtons($parameters, &$object, &$action, $hookmanager)
 	{
 		$error = 0; // Error counter
 		$myvalue = 'test'; // A result value
+        $contexts = explode(':', $parameters['context']);
+        $in_context = function($context) use ($contexts) { return in_array($context, $contexts); };
+        global $langs;
 
-		print_r($parameters);
-		echo "action: " . $action;
-		print_r($object);
-
-		if (in_array('somecontext', explode(':', $parameters['context'])))
+		if ($in_context('productcard'))
 		{
-		  // do something only for the context 'somecontext'
+		    $this->results = array();
+		    $url = dol_buildpath(
+		        'citrusmanager2/card.php?' . http_build_query(array(
+		            'action' => 'create_from_product',
+		            'mainmenu' => 'citrusmanager2',
+                    'fk_product' => $object->id
+                )),
+                1
+            );
+		    echo '<div class="divButAction">';
+		    echo '<a class="butAction" href=' . $url . '>';
+            echo $langs->trans('DeriveCitrusFromProduct');
+		    echo '</a>';
+		    echo '</div>';
+		    return 0;
 		}
 
 		if (! $error)

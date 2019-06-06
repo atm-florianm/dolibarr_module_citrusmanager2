@@ -42,6 +42,7 @@ refTooltip=Code de référence unique de votre agrume
 labelTooltip=Libellé (en bon français) de votre agrume
 priceTooltip=Prix de votre agrume. Si non défini ou nul, un prix par défaut sera choisi pour vous.
 categoryTooltip=Catégorie de votre agrume. Les catégories peuvent être définies dans un dictionnaire.
+productRef=Réf. du produit lié
 
 # CARD TPL
 Save=Enregistrer
@@ -52,3 +53,6 @@ Modify=Modifier
 Reopen=Rouvrir
 ToClone=Cloner
 Delete=Supprimer
+
+# PRODUCT CARD (HOOK)
+DeriveCitrusFromProduct=Créer un agrume
