@@ -134,6 +134,7 @@ class InterfaceCitrusManager2trigger
      */
     public function run_trigger($action, $object, $user, $langs, $conf)
     {
+        global $db;
         // Put here code you want to execute when a Dolibarr business events occurs.
         // Data and type of action are stored into $object and $action
         // Users
@@ -183,9 +184,11 @@ class InterfaceCitrusManager2trigger
             case 'PRODUCT_CREATE':
                 break;
             case 'PRODUCT_MODIFY':
+                // if this product is referenced by some citruses, update their label to match this product's.
+                $citrus = new Citrus2($db);
+                $citrus->updateLabelWhere($object->label, 'fk_product = ' . intval($object->id));
                 break;
             case 'PRODUCT_DELETE':
-                global $db;
                 // if any citrus has a foreign key to this product, set the fk to 0.
                 $citrus = new Citrus2($db);
                 $citrus->invalidateFkProduct($object->id);

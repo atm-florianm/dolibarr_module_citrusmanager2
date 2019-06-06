@@ -134,7 +134,20 @@ class Citrus2 extends SeedObject
      */
     public function invalidateFkProduct($fk_product)
     {
+        $fk_product = intval($fk_product);
         $sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET fk_product = 0 WHERE fk_product = '. $fk_product . ';';
+        $resql = $this->db->query($sql);
+        if (!$resql) {
+            dol_print_error($this->db);
+        }
+        return (boolean)$resql;
+    }
+
+    public function updateLabelWhere($new_label, $where_clause)
+    {
+        $new_label = '"' . $this->db->escape($new_label) . '"';
+        $fk_product = intval($fk_product);
+        $sql = 'UPDATE ' . MAIN_DB_PREFIX . $this->table_element . ' SET label = ' . $new_label . ' WHERE ' . $where_clause . ';';
         $resql = $this->db->query($sql);
         if (!$resql) {
             dol_print_error($this->db);
